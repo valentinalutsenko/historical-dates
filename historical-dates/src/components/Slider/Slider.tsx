@@ -4,7 +4,7 @@ import { Pagination, Navigation } from "swiper/modules";
 
 import styles from "./slider.module.scss";
 
-interface SliderObj {
+interface SliderProps {
   sliderData: slideData[];
   mobileScreen: boolean;
 }
@@ -14,7 +14,7 @@ interface slideData {
   description: string;
 }
 
-const Slider = ({ sliderData, mobileScreen }: SliderObj) => {
+const Slider = ({ sliderData, mobileScreen }: SliderProps) => {
   return (
     <>
       <div className={styles.wrapper}>

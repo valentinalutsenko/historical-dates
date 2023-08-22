@@ -1,8 +1,10 @@
 import React from "react";
 
 import Slider from "./Slider/Slider";
+import Title from "./Title/Title";
+import FractionPagination from "./FractionPagination/FractionPagination";
 
-interface HistoricalDatesObj {
+interface HistoricalDatesProps {
   dataset: Dataset;
 }
 
@@ -11,7 +13,7 @@ type Dataset = {
   index: number;
   label: string;
   yearsInterval: {
-    satart: number;
+    start: number;
     last: number;
   };
   details: {
@@ -20,9 +22,13 @@ type Dataset = {
   }[];
 }[];
 
-const HistoricalDates = ({ dataset }: HistoricalDatesObj) => {
+const HistoricalDates = ({ dataset }: HistoricalDatesProps) => {
   const [currentPointIndex, setcurrentPointIndex] = React.useState<number>(
     dataset[0].index
+  );
+
+  const [startYear, setStartYear] = React.useState<number>(
+    dataset[0].yearsInterval.start
   );
 
   const sliderData = dataset[currentPointIndex - 1].details;
@@ -31,6 +37,7 @@ const HistoricalDates = ({ dataset }: HistoricalDatesObj) => {
   return (
     <>
       <div>
+        <Title />
         <Slider sliderData={sliderData} mobileScreen={mobileScreen} />
       </div>
     </>
