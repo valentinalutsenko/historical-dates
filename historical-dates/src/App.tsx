@@ -1,12 +1,15 @@
 import React from "react";
 
 import HistoricalDates from "./components/HistoricalDates";
-import dataset from "./assets/dataset";
+import db from "./assets/db";
+
+import "./assets/styles/resetStyles.scss";
+import "./assets/styles/fonts.scss";
 
 function App() {
   return (
     <div className="App">
-      <HistoricalDates dataset={dataset} />
+      <HistoricalDates db={db} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 
-import styles from "./slider.module.scss";
+import "./slider.scss";
 
 interface SliderProps {
   sliderData: slideData[];
@@ -15,33 +15,36 @@ interface slideData {
 }
 
 const Slider = ({ sliderData, mobileScreen }: SliderProps) => {
+  //даты и описания событий нижний слайд
+  const slide = sliderData.map((item: slideData) => {
+    return (
+      <SwiperSlide key={item.year}>
+        <div className="swiper-slide__title">{item.year}</div>
+        <div className="swiper-slide__description">{item.description}</div>
+      </SwiperSlide>
+    );
+  });
+
   return (
     <>
-      <div className={styles.wrapper}>
+      <div className="swiper__wrapper">
         <Swiper
-          slidesPerView={2}
-          freeMode={true}
-          grabCursor={false}
+          slidesPerView={mobileScreen ? 2 : 3}
+          freeMode={mobileScreen ? true : false}
+          grabCursor={mobileScreen ? false : true}
           navigation={{
-            prevEl: styles.prev,
-            nextEl: styles.next,
+            prevEl: ".swiper__button-prev",
+            nextEl: ".swiper__button-next",
           }}
           modules={[Pagination, Navigation]}
-          className={styles.swiper}
+          className=".swiper"
         >
-          {sliderData.map((item: slideData) => {
-            return (
-              <SwiperSlide key={item.year}>
-                <div className={styles.title}>{item.year}</div>
-                <div className={styles.description}>{item.description}</div>
-              </SwiperSlide>
-            );
-          })}
+          {slide}
         </Swiper>
-        <button className={styles.prev}></button>
-        <button className={styles.next}></button>
+        <button className="swiper__button-prev"></button>
+        <button className="swiper__button-next"></button>
       </div>
-      <div className={styles.pagination}></div>
+      <div className="swiper__pagination"></div>
     </>
   );
 };

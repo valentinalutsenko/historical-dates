@@ -5,10 +5,10 @@ import Title from "./Title/Title";
 import FractionPagination from "./FractionPagination/FractionPagination";
 
 interface HistoricalDatesProps {
-  dataset: Dataset;
+  db: Db;
 }
 
-type Dataset = {
+type Db = {
   id: string;
   index: number;
   label: string;
@@ -22,16 +22,16 @@ type Dataset = {
   }[];
 }[];
 
-const HistoricalDates = ({ dataset }: HistoricalDatesProps) => {
+const HistoricalDates = ({ db }: HistoricalDatesProps) => {
   const [currentPointIndex, setcurrentPointIndex] = React.useState<number>(
-    dataset[0].index
+    db[0].index
   );
 
   const [startYear, setStartYear] = React.useState<number>(
-    dataset[0].yearsInterval.start
+    db[0].yearsInterval.start
   );
 
-  const sliderData = dataset[currentPointIndex - 1].details;
+  const sliderData = db[currentPointIndex - 1].details;
   const mobileScreen = window.innerWidth <= 786;
 
   return (

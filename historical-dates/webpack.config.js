@@ -54,17 +54,6 @@ module.exports = {
           { loader: "sass-loader" },
         ],
       },
-      {
-        test: /\.module.css$/,
-        use: [
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-            },
-          },
-        ],
-      },
     ],
   },
   devServer: {

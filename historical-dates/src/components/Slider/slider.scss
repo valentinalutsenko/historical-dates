@@ -1,0 +1,36 @@
+.swiper {
+  &__wrapper {
+    position: absolute;
+    width: 1440px;
+    left: 320px;
+    bottom: 25px;
+    border: 1px;
+  }
+
+  &__button-prev {
+    left: 0;
+  }
+
+  &-slide {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: start;
+    max-width: 400px;
+    font-size: 20px;
+
+    &:not(:last-child) {
+      margin-right: 80px;
+    }
+    &__title {
+      margin-bottom: 15px;
+      font-size: 25px;
+      color: #3877ee;
+    }
+    &__description {
+      font-size: 20px;
+      line-height: 30px;
+      color: #42567a;
+    }
+  }
+}
