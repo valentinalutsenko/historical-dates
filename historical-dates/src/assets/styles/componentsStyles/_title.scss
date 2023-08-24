@@ -1,20 +1,24 @@
 .title {
-  // @include pt-sans-bold-font;
+  @include pt-sans-bold-font;
+
   position: absolute;
-  top: 150px;
+  top: 15%;
   left: 0;
+
   padding-left: 80px;
+
   font-size: 56px;
-  line-height: 70px;
+  line-height: 120%;
 
-  color: #42567a;
-
-  &:before {
+  &::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
+
     width: 5px;
-    height: 120px;
+    height: 100%;
+
     background: linear-gradient(180deg, #5d5fef, #ef5da8);
   }
 }

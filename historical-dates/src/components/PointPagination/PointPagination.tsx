@@ -6,27 +6,29 @@ interface PointPaginationProps {
   pointClickHandler: (id: number) => void;
 }
 
-const PointPagination = ({
+function PointPagination({
   currentPointIndex,
   lengthPoints,
   pointClickHandler: handlePointClick,
-}: PointPaginationProps) => {
+}: PointPaginationProps) {
   const pointsArr = [];
 
   for (let i = 1; i <= lengthPoints; i++) {
     pointsArr.push(
       <span
-        key={`pagination-point-${i}`}
-        className={`historical-dates__bullets-pagination__point${
+        key={`pagination-bullet-${i}`}
+        className={`historical-dates__bullets-pagination__bullet ${
           i === currentPointIndex &&
-          "historical-dates__points-pagination__point_active"
+          "historical-dates__bullets-pagination__bullet_active"
         }`}
-        onClick={() => handleBulletClick(i)}
+        onClick={() => handlePointClick(i)}
       ></span>
     );
   }
 
-  return <div className="historical-dates__point-pagination">{pointsArr}</div>;
-};
+  return (
+    <div className="historical-dates__bullets-pagination">{pointsArr}</div>
+  );
+}
 
 export default PointPagination;

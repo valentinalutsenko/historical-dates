@@ -1,7 +1,39 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 
 export type ArrowControlsStatus = "left" | "right" | null;
 
-const ArrowControls = () => {};
+interface ArrowControlsProps {
+  currentPointIndex: number;
+  lengthPoints: number;
+  arrowControlsStatus: ArrowControlsStatus;
+  controlClickHandler: (e: MouseEvent, id: number) => void;
+}
+
+const ArrowControls = ({
+  currentPointIndex,
+  lengthPoints,
+  arrowControlsStatus,
+  controlClickHandler: handleControlClick,
+}: ArrowControlsProps) => {
+  return (
+    <div className="arrow-controls">
+      <div
+        className={`arrow-controls__arrow-left ${
+          (currentPointIndex === 1 || arrowControlsStatus !== null) &&
+          "arrow-controls__arrow-left_disabled"
+        }`}
+        onClick={(e) => handleControlClick(e, -1)}
+      ></div>
+      <div
+        className={`arrow-controls__arrow-right ${
+          (currentPointIndex === lengthPoints ||
+            arrowControlsStatus !== null) &&
+          "arrow-controls__arrow-right_disabled"
+        }`}
+        onClick={(e) => handleControlClick(e, 1)}
+      ></div>
+    </div>
+  );
+};
 
 export default ArrowControls;

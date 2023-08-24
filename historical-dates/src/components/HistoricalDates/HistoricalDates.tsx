@@ -1,14 +1,13 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 
 import ArrowControls from "../ArrowControls/ArrowControls";
 import FractionPagination from "../FractionPagination/FractionPagination";
 import Slider from "../Slider/Slider";
 import Title from "../Title/Title";
+import TimeIntervals from "../timeIntervals";
 import PointPagination from "../PointPagination/PointPagination";
 import ControlsWrapper from "../ControlsWrapper/ControlsWrapper";
 import capitalizeString from "../../utils/capitalizeString";
-
-import "./historicalDates.scss";
 
 interface HistoricalDatesProps {
   db: Db;
@@ -44,6 +43,7 @@ const HistoricalDates = ({ db }: HistoricalDatesProps) => {
   const [arrowControlsStatus, setArrowControlsStatus] = React.useState<
     null | "left" | "right"
   >(null);
+
   const [updatingYears, setUpdatingYears] = React.useState<boolean>(false);
   const pointsData = db.map(({ id, index, label }) => ({
     id,
@@ -128,7 +128,35 @@ const HistoricalDates = ({ db }: HistoricalDatesProps) => {
     <>
       <div className="historical-dates">
         <Title />
+        <TimeIntervals
+          currentPointIndex={currentPointIndex}
+          startYear={startYear}
+          lastYear={lastYear}
+          pointsData={pointsData}
+          rotationDuration={rotationDuration}
+          pointClickHandler={handlePointClick}
+          arrowControlsStatus={arrowControlsStatus}
+          arrowControlsStatusSetter={setArrowControlsStatus}
+        />
+        <hr className="historical-dates__delimiter" />
+        <ControlsWrapper>
+          <FractionPagination
+            currentPointIndex={currentPointIndex}
+            lengthPoints={db.length}
+          />
+          <ArrowControls
+            controlClickHandler={handleControlClick}
+            lengthPoints={db.length}
+            arrowControlsStatus={arrowControlsStatus}
+            currentPointIndex={currentPointIndex}
+          />
+        </ControlsWrapper>
         <Slider sliderData={sliderData} mobileScreen={mobileScreen} />
+        <PointPagination
+          currentPointIndex={currentPointIndex}
+          lengthPoints={db.length}
+          pointClickHandler={handlePointClick}
+        />
       </div>
     </>
   );
