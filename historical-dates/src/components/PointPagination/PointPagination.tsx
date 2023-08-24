@@ -15,14 +15,14 @@ function PointPagination({
 
   for (let i = 1; i <= lengthPoints; i++) {
     pointsArr.push(
-      <span
+      <div
         key={`pagination-bullet-${i}`}
         className={`historical-dates__bullets-pagination__bullet ${
           i === currentPointIndex &&
           "historical-dates__bullets-pagination__bullet_active"
         }`}
         onClick={() => handlePointClick(i)}
-      ></span>
+      ></div>
     );
   }
 

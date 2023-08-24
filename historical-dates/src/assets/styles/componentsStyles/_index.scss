@@ -49,10 +49,10 @@
     }
   }
 
-  @import "title";
-  @import "time-intervals";
-  @import "arrow-controls";
-  @import "slider";
+  @import "./title";
+  @import "./time-intervals";
+  @import "./arrow-controls";
+  @import "./slider";
 
   @include pt-sans-regular-font;
 
@@ -129,5 +129,5 @@
   }
 }
 
-@import "media/desktop";
-@import "media/mobile";
+@import "./media/desktop";
+@import "./media/mobile";

@@ -11,18 +11,8 @@ interface slideData {
   year: number;
   description: string;
 }
-
+//карточки с фактами
 const Slider = ({ sliderData, mobileScreen }: SliderProps) => {
-  //даты и описания событий нижний слайд
-  const slide = sliderData.map((item: slideData) => {
-    return (
-      <SwiperSlide key={item.year}>
-        <div className="swiper-slide__title">{item.year}</div>
-        <div className="swiper-slide__description">{item.description}</div>
-      </SwiperSlide>
-    );
-  });
-
   return (
     <>
       <div className="swiper__wrapper">
@@ -37,7 +27,16 @@ const Slider = ({ sliderData, mobileScreen }: SliderProps) => {
           modules={[Pagination, Navigation]}
           className=".swiper"
         >
-          {slide}
+          {sliderData.map((item: slideData) => {
+            return (
+              <SwiperSlide key={item.year}>
+                <div className="swiper-slide__title">{item.year}</div>
+                <div className="swiper-slide__description">
+                  {item.description}
+                </div>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
         <button className="swiper__button-prev"></button>
         <button className="swiper__button-next"></button>
