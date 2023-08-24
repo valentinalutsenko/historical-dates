@@ -9,6 +9,11 @@
 
   &__button-prev {
     left: 0;
+    // @include arrow-control-right;
+    // @include swiper-arrow-control;
+  }
+  &__button-next {
+    right: -60px;
   }
 
   &-slide {

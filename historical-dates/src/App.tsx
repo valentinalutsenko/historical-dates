@@ -1,6 +1,6 @@
 import React from "react";
 
-import HistoricalDates from "./components/HistoricalDates";
+import HistoricalDates from "./components/HistoricalDates/HistoricalDates";
 import db from "./assets/db";
 
 import "./assets/styles/resetStyles.scss";

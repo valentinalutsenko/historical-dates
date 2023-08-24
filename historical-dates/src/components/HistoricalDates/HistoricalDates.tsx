@@ -1,8 +1,10 @@
 import React from "react";
 
-import Slider from "./Slider/Slider";
-import Title from "./Title/Title";
-import FractionPagination from "./FractionPagination/FractionPagination";
+import Slider from "../Slider/Slider";
+import Title from "../Title/Title";
+import FractionPagination from "../FractionPagination/FractionPagination";
+
+import "./historicalDates.scss";
 
 interface HistoricalDatesProps {
   db: Db;
@@ -36,7 +38,7 @@ const HistoricalDates = ({ db }: HistoricalDatesProps) => {
 
   return (
     <>
-      <div>
+      <div className="historical-dates">
         <Title />
         <Slider sliderData={sliderData} mobileScreen={mobileScreen} />
       </div>

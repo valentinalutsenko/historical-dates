@@ -9,7 +9,9 @@ const FractionPagination = ({
   currentPointIndex,
   lengthPoints,
 }: FractionPaginationProps) => {
-  return <span>{`0${currentPointIndex}/0${lengthPoints}`}</span>;
+  return (
+    <span className="historical-dates__fraction-pagination">{`0${currentPointIndex}/0${lengthPoints}`}</span>
+  );
 };
 
 export default FractionPagination;

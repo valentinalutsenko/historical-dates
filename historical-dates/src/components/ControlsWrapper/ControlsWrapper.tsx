@@ -5,7 +5,7 @@ interface ControlsWrapper {
 }
 
 const ControlsWrapper = ({ children }: ControlsWrapper) => {
-  return <div>{children}</div>;
+  return <div className="historical-dates__controls-wrapper">{children}</div>;
 };
 
 export default ControlsWrapper;
