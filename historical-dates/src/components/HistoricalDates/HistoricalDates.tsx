@@ -1,8 +1,12 @@
 import React from "react";
 
+import ArrowControls from "../ArrowControls/ArrowControls";
+import FractionPagination from "../FractionPagination/FractionPagination";
 import Slider from "../Slider/Slider";
 import Title from "../Title/Title";
-import FractionPagination from "../FractionPagination/FractionPagination";
+import PointPagination from "../PointPagination/PointPagination";
+import ControlsWrapper from "../ControlsWrapper/ControlsWrapper";
+import capitalizeString from "../../utils/capitalizeString";
 
 import "./historicalDates.scss";
 
@@ -25,7 +29,7 @@ type Db = {
 }[];
 
 const HistoricalDates = ({ db }: HistoricalDatesProps) => {
-  const [currentPointIndex, setcurrentPointIndex] = React.useState<number>(
+  const [currentPointIndex, setCurrentPointIndex] = React.useState<number>(
     db[0].index
   );
 
@@ -33,8 +37,92 @@ const HistoricalDates = ({ db }: HistoricalDatesProps) => {
     db[0].yearsInterval.start
   );
 
+  const [lastYear, setLastYear] = React.useState<number>(
+    db[0].yearsInterval.last
+  );
+
+  const [arrowControlsStatus, setArrowControlsStatus] = React.useState<
+    null | "left" | "right"
+  >(null);
+  const [updatingYears, setUpdatingYears] = React.useState<boolean>(false);
+  const pointsData = db.map(({ id, index, label }) => ({
+    id,
+    index,
+    label: capitalizeString(label),
+  }));
+
   const sliderData = db[currentPointIndex - 1].details;
+  const rotationDuration = 1;
   const mobileScreen = window.innerWidth <= 786;
+
+  const updateYears = (newIndex: number) => {
+    setUpdatingYears(true);
+
+    const newYearsInterval = db[newIndex - 1].yearsInterval;
+
+    let castNumber = 1;
+
+    if (currentPointIndex > newIndex || arrowControlsStatus === "left") {
+      castNumber = -1;
+    }
+
+    let startYearCounter = Math.abs(startYear - newYearsInterval.start);
+    let lastYearCounter = Math.abs(lastYear - newYearsInterval.last);
+    let delay = (rotationDuration * 1000) / 2;
+
+    if (startYearCounter > lastYearCounter) {
+      delay = delay / startYearCounter;
+    } else {
+      delay = delay / lastYearCounter;
+    }
+
+    const interval = setInterval(() => {
+      if (startYearCounter > 0) {
+        setStartYear((prevYear) => prevYear + castNumber);
+        startYearCounter--;
+      }
+
+      if (lastYearCounter > 0) {
+        setLastYear((prevYear) => prevYear + castNumber);
+        lastYearCounter--;
+      }
+
+      if (startYearCounter === 0 && lastYearCounter === 0) {
+        clearInterval(interval);
+        setUpdatingYears(false);
+      }
+    }, delay);
+  };
+
+  const handlePointClick = (index: number) => {
+    if (updatingYears) {
+      return;
+    }
+
+    updateYears(index);
+
+    setCurrentPointIndex(index);
+  };
+
+  const handleControlClick = (e: MouseEvent, castNumber: number) => {
+    if (
+      updatingYears ||
+      e.currentTarget.classList.contains(
+        "arrow-controls__arrow-left_disabled"
+      ) ||
+      e.currentTarget.classList.contains("arrow-controls__arrow-right_disabled")
+    ) {
+      return;
+    }
+
+    if (mobileScreen) {
+      updateYears(currentPointIndex + castNumber);
+      setCurrentPointIndex((prevIndex) => prevIndex + castNumber);
+    } else {
+      setArrowControlsStatus(castNumber < 0 ? "left" : "right");
+      setCurrentPointIndex((prevIndex) => prevIndex + castNumber);
+    }
+  };
 
   return (
     <>
